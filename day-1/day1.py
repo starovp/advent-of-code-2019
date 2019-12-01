@@ -51,8 +51,8 @@ def fuel_sum():
 
 if __name__ == '__main__':
     result = fuel_sum()
-    print("Part 1:", fuel_sum()[0])
-    print("Part 2:", fuel_sum()[0]+fuel_sum()[1])
+    print("Part 1:", result[0])
+    print("Part 2:", result[0]+result[1])
 
 
 
