@@ -50,16 +50,27 @@ What is 100 * noun + verb? (For example, if noun=12 and verb=2, the answer would
 
 """
 
+def get_init():
+  a = open("intcode.txt", "r")
+  b = (a.readline()).split(",")
+  a.close()
+  return b
+
+def opcode_one(arr, i):
+  arr[int('%s'%(arr[i+3]))] = int(arr[int('%s'%(arr[i+1]))]) + int(arr[int('%s'%(arr[i+2]))])
+  
+def opcode_two(arr, i):
+  arr[int('%s'%(arr[i+3]))] = int(arr[int('%s'%(arr[i+1]))]) * int(arr[int('%s'%(arr[i+2]))])    
+
 def part_one():
-  ins = open("intcode.txt", "r")
-  ics = (ins.readline()).split(",")
+  ics = get_init()
   i = 0
   while i < (len(ics)):
     if ics[i] == "1":
-        ics[int('%s'%(ics[i+3]))] = int(ics[int('%s'%(ics[i+1]))]) + int(ics[int('%s'%(ics[i+2]))])
+        opcode_one(ics, i)
         i += 4
     elif ics[i] == "2":
-        ics[int('%s'%(ics[i+3]))] = int(ics[int('%s'%(ics[i+1]))]) * int(ics[int('%s'%(ics[i+2]))])
+        opcode_two(ics, i)
         i += 4
     elif ics[i] == "99":
         return ics[0]
@@ -67,17 +78,16 @@ def part_one():
 def part_two():
   for k in range(0,100):
       for j in range(0, 100):
-          ins = open("intcode.txt", "r")
-          ics = (ins.readline()).split(",")
+          ics = get_init()
           ics[1] = '%s'%(k)
           ics[2] = '%s'%(j)
           i = 0
           while i < (len(ics)):
               if ics[i] == "1":
-                  ics[int('%s'%(ics[i+3]))] = int(ics[int('%s'%(ics[i+1]))]) + int(ics[int('%s'%(ics[i+2]))])
+                  opcode_one(ics, i)
                   i += 4
               elif ics[i] == "2":
-                  ics[int('%s'%(ics[i+3]))] = int(ics[int('%s'%(ics[i+1]))]) * int(ics[int('%s'%(ics[i+2]))])
+                  opcode_two(ics, i)
                   i += 4
               elif ics[i] == "99":
                   break
